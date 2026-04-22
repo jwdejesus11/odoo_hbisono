@@ -9,8 +9,9 @@ services:
       - USER=odoo
       - PASSWORD=odoo
       - DB_NAME=hbisono_prod
-    expose:
-      - 8069
+    ports:
+      - 8069:8069
+
 
     command: >
       sh -c "odoo --db_host=db --db_user=odoo --db_password=odoo -d hbisono_prod -i account --stop-after-init; 
