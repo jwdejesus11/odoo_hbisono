@@ -9,8 +9,9 @@ services:
       - USER=odoo
       - PASSWORD=odoo
       - DB_NAME=hbisono_prod
-    ports:
-      - 8069:8069
+    expose:
+      - 8069
+
     command: >
       sh -c "odoo --db_host=db --db_user=odoo --db_password=odoo -d hbisono_prod -i account --stop-after-init; 
              echo \"c=env['res.company'].browse(1); c.write({'name': 'Hnos Bisonó', 'vat': '130836345', 'country_id': env.ref('base.do').id, 'currency_id': env.ref('base.DOP').id}); env['account.chart.template'].try_loading('do', c); env.cr.commit()\" | odoo shell -d hbisono_prod --db_host=db --db_user=odoo --db_password=odoo --no-http --stop-after-init; 
