@@ -7,7 +7,8 @@
                 <div name="left-upper-side" class="col-8">
                     <img t-if="o.company_id.logo"
                          t-att-src="image_data_uri(o.company_id.logo)"
-                         style="max-height: 100px;" alt="Logo"/>
+                         style="max-height: 200px;" alt="Logo"/>
+
                     <br/>
                     <br/>
                 </div>
