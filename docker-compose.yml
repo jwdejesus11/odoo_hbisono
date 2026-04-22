@@ -10,8 +10,9 @@ services:
       - PASSWORD=odoo
       - DB_NAME=hbisono_prod
     command: >
-      sh -c "odoo --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons -d hbisono_prod -i l10n_do_accounting --stop-after-init && 
-             odoo --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons -d hbisono_prod"
+      sh -c "odoo --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons --db_host=db --db_user=odoo --db_password=odoo -d hbisono_prod -i l10n_do_accounting --stop-after-init && 
+             odoo --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons --db_host=db --db_user=odoo --db_password=odoo -d hbisono_prod"
+
     volumes:
       - odoo-data:/var/lib/odoo
 
