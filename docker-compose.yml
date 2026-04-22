@@ -10,10 +10,11 @@ services:
       - PASSWORD=odoo
       - DB_NAME=hbisono_prod
     command: >
-      sh -c "odoo --db_host=db --db_user=odoo --db_password=odoo -d hbisono_prod --stop-after-init; 
-             echo \"c=env['res.company'].browse(1); c.write({'name': 'Hnos Bisonó', 'vat': '130836345', 'country_id': env.ref('base.do').id, 'currency_id': env.ref('base.DOP').id}); env.cr.commit()\" | odoo shell -d hbisono_prod --db_host=db --db_user=odoo --db_password=odoo --no-http --stop-after-init; 
+      sh -c "odoo --db_host=db --db_user=odoo --db_password=odoo -d hbisono_prod -i account --stop-after-init; 
+             echo \"c=env['res.company'].browse(1); c.write({'name': 'Hnos Bisonó', 'vat': '130836345', 'country_id': env.ref('base.do').id, 'currency_id': env.ref('base.DOP').id}); env['account.chart.template'].try_loading('do', c); env.cr.commit()\" | odoo shell -d hbisono_prod --db_host=db --db_user=odoo --db_password=odoo --no-http --stop-after-init; 
              odoo --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons --db_host=db --db_user=odoo --db_password=odoo -d hbisono_prod --load-language=es_DO --without-demo=all -i l10n_do_accounting --stop-after-init && 
              odoo --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons --db_host=db --db_user=odoo --db_password=odoo -d hbisono_prod"
+
 
 
 
