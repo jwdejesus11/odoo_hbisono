@@ -329,6 +329,11 @@
             <t t-call="l10n_do_accounting.document_tax_totals"/>
         </xpath>
 
+        <!-- Filter out internal details (Proveedor, Marca, Categoria) from invoice line description -->
+        <xpath expr="//span[@t-field='line.name']" position="replace">
+            <span t-out="'\n'.join([l for l in (line.name or '').split('\n') if not any(l.strip().startswith(p) for p in ('Proveedor:', 'Marca:', 'Categoria:', 'Categoría:'))])" t-options="{'widget': 'text'}"/>
+        </xpath>
+
     </template>
 
     <template id="report_invoice" inherit_id="account.report_invoice">
@@ -336,6 +341,13 @@
             <t t-if="o._get_name_invoice_report() == 'l10n_do_accounting.report_invoice_document_inherited'"
                t-call="l10n_do_accounting.report_invoice_document_inherited"
                t-lang="lang"/>
+        </xpath>
+    </template>
+
+    <!-- Filter out internal details (Proveedor, Marca, Categoria) from quotation/sale order line description -->
+    <template id="report_saleorder_document_inherited" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//span[@t-field='line.name']" position="replace">
+            <span t-out="'\n'.join([l for l in (line.name or '').split('\n') if not any(l.strip().startswith(p) for p in ('Proveedor:', 'Marca:', 'Categoria:', 'Categoría:'))])"/>
         </xpath>
     </template>
 
