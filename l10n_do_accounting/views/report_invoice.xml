@@ -340,7 +340,7 @@
         <xpath expr='//t[@t-call="account.report_invoice_document"]' position="after">
             <t t-if="o._get_name_invoice_report() == 'l10n_do_accounting.report_invoice_document_inherited'"
                t-call="l10n_do_accounting.report_invoice_document_inherited"
-               t-lang="lang"/>
+               t-lang="'es_DO'"/>
         </xpath>
     </template>
 
@@ -348,6 +348,13 @@
     <template id="report_saleorder_document_inherited" inherit_id="sale.report_saleorder_document">
         <xpath expr="//span[@t-field='line.name']" position="replace">
             <span t-out="'\n'.join([l for l in (line.name or '').split('\n') if not any(l.strip().startswith(p) for p in ('Proveedor:', 'Marca:', 'Categoria:', 'Categoría:'))])"/>
+        </xpath>
+    </template>
+
+    <!-- Force Spanish (es_DO) in quotation/sale order report container -->
+    <template id="report_saleorder_inherited" inherit_id="sale.report_saleorder">
+        <xpath expr="//t[@t-call='sale.report_saleorder_document']" position="attributes">
+            <attribute name="t-lang">'es_DO'</attribute>
         </xpath>
     </template>
 
